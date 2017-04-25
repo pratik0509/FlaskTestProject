@@ -12,7 +12,7 @@ This is an introductory Flask app.
 Simple app which displays "Hello World!!" on visiting
 "host:port".
 
-#+NAME hello
+#+NAME: hello
 #+BEGIN_SRC python :tangle hello.py
   from flask import Flask
 
@@ -38,7 +38,7 @@ Taking Input from forms and sending 'POST' request to the URL.
 Differentiating between 'GET' and 'POST' by using =request=.
 Jinja engine rendering template =render_template=.
 
-#+NAME forms
+#+NAME: forms
 #+BEGIN_SRC python :tangle forms.py
   from flask import Flask, request, render_template
 
@@ -61,7 +61,7 @@ Jinja engine rendering template =render_template=.
 
 ** Dummy HTML form
 
-#+NAME testForm
+#+NAME: testForm
 #+BEGIN_SRC html :tangle templates/testForm.html
   <!DOCTYPE html>
   <html>
@@ -81,5 +81,71 @@ Jinja engine rendering template =render_template=.
 
 
 
+
+#+END_SRC
+
+
+* Using Jinja engine
+
+Jinja is the templating engine used by Flask.
+This section gives you a basic idea for using Jinja
+
+#+NAME: jinjaTesting
+#+BEGIN_SRC python :tangle jinja.py
+  from flask import Flask, render_template, request
+
+  app = Flask(__name__)
+
+  users = {
+      'Pratik Jain': {
+          'university': 'IIIT-H',
+          'year': '1st'
+          },
+      'Naruto Uzumaki': {
+          'university': 'Konoha National Academy',
+          'year': 'Genin'
+          },
+      'Ichigo Kurosaki': {
+          'university': 'Unknown',
+          'year': 'Unknown'
+          }
+      }
+
+  @app.route('/')
+  def render():
+      return render_template('jinjaTestTemplate.html', data = users)
+
+  if __name__=='__main__':
+      app.run()
+#+END_SRC
+
+#+NAME: jinjaTestTemplate
+#+BEGIN_SRC html :tangle templates/jinjaTestTemplate.html
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title> User Details </title>
+    </head>
+    <body>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Year</th>
+            <th>College</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in data %}
+          <tr>
+            <td>{{ student }}</td>
+            <td>{{ data[student]['year'] }}</td>
+            <td>{{ data[student]['university'] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </body>
+  </html>
 
 #+END_SRC

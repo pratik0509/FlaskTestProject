@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> User Details </title>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Year</th>
+          <th>College</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in data %}
+        <tr>
+          <td>{{ student }}</td>
+          <td>{{ data[student]['year'] }}</td>
+          <td>{{ data[student]['university'] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

@@ -11,7 +11,7 @@ def hello():
     if request.method == 'GET':
         return render_template('testForm.html')
     elif request.method == 'POST':
-        return 'Hello' + request.form['name']
+        return 'Hello! ' + request.form['name']
 
 if __name__=='__main__':
     app.run(host, port)
