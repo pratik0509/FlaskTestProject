@@ -1,0 +1,85 @@
+#+TITLE: Test Flask Project
+#+AUTHOR: Pratik Jain
+#+EMAIL: pratik.jain0509@gmail.com
+
+* Introduction
+
+This is an introductory Flask app.
+
+
+* Hello World Program
+
+Simple app which displays "Hello World!!" on visiting
+"host:port".
+
+#+NAME hello
+#+BEGIN_SRC python :tangle hello.py
+  from flask import Flask
+
+  host = '127.0.0.1'
+  port = '5050'
+
+
+  app = Flask(__name__)
+
+  @app.route('/')
+  def hello():
+      return "Hello World!!"
+
+  if __name__=='__main__':
+      app.run(host, port)
+#+END_SRC
+
+
+* Going a little above by creating forms
+
+** Python Code
+Taking Input from forms and sending 'POST' request to the URL.
+Differentiating between 'GET' and 'POST' by using =request=.
+Jinja engine rendering template =render_template=.
+
+#+NAME forms
+#+BEGIN_SRC python :tangle forms.py
+  from flask import Flask, request, render_template
+
+  host = '127.0.0.1'
+  port = '5050'
+
+  app = Flask(__name__)
+
+  @app.route('/', methods = ['GET', 'POST'])
+  def hello():
+      if request.method == 'GET':
+          return render_template('testForm.html')
+      elif request.method == 'POST':
+          return 'Hello! ' + request.form['name']
+
+  if __name__=='__main__':
+      app.run(host, port)
+
+#+END_SRC
+
+** Dummy HTML form
+
+#+NAME testForm
+#+BEGIN_SRC html :tangle templates/testForm.html
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>FORM</title>
+    </head>
+    <body>
+      <form method='post' action=''>
+        NAME: <input type='text' name='name'>
+      </form>
+    </body>
+  </html>
+
+#+END_SRC
+
+
+
+
+
+
+#+END_SRC
